@@ -22,4 +22,5 @@
     border-radius: 0.5vmin;
     height: 3vmin;
     min-height: 3vmin;
+    cursor: pointer;
 }
