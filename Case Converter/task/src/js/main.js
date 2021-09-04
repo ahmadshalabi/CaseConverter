@@ -1,53 +1,82 @@
-const textArea = document.querySelector("textarea");
+let CaseConverter = (function () {
 
-const toUpperCaseButton = document.getElementById('upper-case');
-toUpperCaseButton.addEventListener('click', function () {
-    textArea.value = textArea.value.toUpperCase();
-});
-
-const toLoweCaseButton = document.getElementById('lower-case');
-toLoweCaseButton.addEventListener('click', function () {
-    textArea.value = textArea.value.toLowerCase();
-});
-
-const toProperCaseButton = document.getElementById('proper-case');
-toProperCaseButton.addEventListener('click', function () {
-    const words = textArea.value.toLowerCase().split(' ');
-    let modifiedWords = [];
-    for (let word of words) {
-        let firstChar = word.charAt(0);
-        let modifiedWord = firstChar.toUpperCase().concat(word.slice(1));
-        modifiedWords.push(modifiedWord);
+    let elements = {
+        textArea: null,
+        buttons: {
+            toUpperCase: null,
+            toLoweCase: null,
+            toProperCase: null,
+            toSentenceCase: null,
+            saveTextFile: null,
+        }
     }
-    textArea.value = modifiedWords.join(' ');
-});
 
-const toSentenceCaseButton = document.getElementById('sentence-case');
-toSentenceCaseButton.addEventListener('click', function () {
-    const sentences = textArea.value.toLowerCase().split('. ');
-    let modifiedSentences = [];
-    for (let sentence of sentences) {
-        let firstChar = sentence.charAt(0);
-        let modifiedSentence = firstChar.toUpperCase().concat(sentence.slice(1));
-        modifiedSentences.push(modifiedSentence);
+    function init() {
+        elements = {
+            textArea: document.querySelector("textarea"),
+            buttons: {
+                toUpperCase: document.getElementById('upper-case'),
+                toLoweCase: document.getElementById('lower-case'),
+                toProperCase: document.getElementById('proper-case'),
+                toSentenceCase: document.getElementById('sentence-case'),
+                saveTextFile: document.getElementById('save-text-file'),
+            }
+        }
+
+        elements.buttons.toUpperCase.addEventListener('click', toUpperCase);
+        elements.buttons.toLoweCase.addEventListener('click', toLowerCase);
+        elements.buttons.toProperCase.addEventListener('click', toProperCase);
+        elements.buttons.toSentenceCase.addEventListener('click', toSentenceCase);
+        elements.buttons.saveTextFileButton.addEventListener('click', download);
     }
-    textArea.value = modifiedSentences.join('. ');
-});
 
-const saveTextFileButton = document.getElementById('save-text-file');
-saveTextFileButton.addEventListener('click', function () {
-    download('text.txt', textArea.value);
-});
+    function toUpperCase() {
+        elements.textArea.value = elements.textArea.value.toUpperCase();
+    }
 
-function download(filename, text) {
-    let linkToSaveFile = document.createElement('a');
-    linkToSaveFile.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    linkToSaveFile.setAttribute('download', filename);
-    linkToSaveFile.style.display = 'none';
+    function toLowerCase() {
+        elements.textArea.value = elements.textArea.value.toLowerCase()
+    }
 
-    document.body.appendChild(linkToSaveFile);
+    function toProperCase() {
+        const words = elements.textArea.value.toLowerCase().split(' ');
+        let modifiedWords = [];
+        for (let word of words) {
+            let firstChar = word.charAt(0);
+            let modifiedWord = firstChar.toUpperCase().concat(word.slice(1));
+            modifiedWords.push(modifiedWord);
+        }
+        elements.textArea.value = modifiedWords.join(' ');
+    }
 
-    linkToSaveFile.click();
+    function toSentenceCase() {
+        const sentences = elements.textArea.value.toLowerCase().split('. ');
+        let modifiedSentences = [];
+        for (let sentence of sentences) {
+            let firstChar = sentence.charAt(0);
+            let modifiedSentence = firstChar.toUpperCase().concat(sentence.slice(1));
+            modifiedSentences.push(modifiedSentence);
+        }
+        elements.textArea.value = modifiedSentences.join('. ');
+    }
 
-    document.body.removeChild(linkToSaveFile);
-}
+    function download(filename, text) {
+        let linkToSaveFile = document.createElement('a');
+        linkToSaveFile.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        linkToSaveFile.setAttribute('download', filename);
+        linkToSaveFile.style.display = 'none';
+
+        document.body.appendChild(linkToSaveFile);
+
+        linkToSaveFile.click();
+
+        document.body.removeChild(linkToSaveFile);
+    }
+
+    return {
+        init: init,
+    }
+
+})();
+
+CaseConverter.init();
