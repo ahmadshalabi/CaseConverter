@@ -20,7 +20,7 @@
     background-color: lightsalmon;
     border: none;
     border-radius: 0.5vmin;
+    cursor: pointer;
     height: 3vmin;
     min-height: 3vmin;
-    cursor: pointer;
 }
