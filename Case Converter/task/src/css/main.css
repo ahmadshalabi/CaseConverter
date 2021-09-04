@@ -3,17 +3,17 @@
     display: flex;
 }
 
+.title,
+.button {
+    margin: 1.5vmin 0;
+}
+
 .title {
     font-weight: bold;
-    margin: 1.5vmin 0;
 }
 
 .textarea {
     flex-basis: 50vmin;
-}
-
-.buttons {
-    margin: 1.5vmin 0;
 }
 
 .button {
