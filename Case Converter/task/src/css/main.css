@@ -8,7 +8,7 @@
     flex-direction: column;
 }
 
-textarea {
+.textarea {
     flex-basis: 50vmin;
 }
 

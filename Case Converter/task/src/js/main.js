@@ -1,4 +1,4 @@
-const textArea = document.querySelector('textarea');
+const textArea = document.getElementsByClassName("textarea");
 
 const toUpperCaseButton = document.getElementById('upper-case');
 toUpperCaseButton.addEventListener('click', function () {
